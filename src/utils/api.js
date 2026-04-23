@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_URL || 'https://localhost:7173/api'
+  // Link chuẩn của Somee
+  baseURL: 'https://anhvu-asp.somee.com/api', 
+  headers: { 'Content-Type': 'application/json' }
 });
 
 // Interceptor chặn request để nhét Token
@@ -19,8 +21,12 @@ api.interceptors.request.use(
         const token = userData.token;
 
         if (token) {
-          config.headers = config.headers || {};
-          config.headers.Authorization = `Bearer ${token}`;
+          // VŨ KHÍ TỐI THƯỢNG: Dùng .set() để ép cứng Token vào Header
+          if (config.headers && config.headers.set) {
+              config.headers.set('Authorization', `Bearer ${token}`);
+          } else {
+              config.headers['Authorization'] = `Bearer ${token}`;
+          }
         }
       } else {
         console.warn('⚠️ Không tìm thấy thông tin đăng nhập [user] trong localStorage!');
