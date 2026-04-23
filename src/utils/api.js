@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   // Link chuẩn của Somee
-  baseURL: 'https://anhvu-asp.somee.com/api', 
+  baseURL: 'http://anhvu-asp.somee.com/api', 
   headers: { 'Content-Type': 'application/json' }
 });
 
